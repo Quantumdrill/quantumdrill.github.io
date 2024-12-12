@@ -1,0 +1,163 @@
+* {
+    margin: 0;
+}
+
+body {
+    overflow: hidden;
+}
+
+.FatFont {
+    font-family: "Gravitas One", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.RegularFont {
+    font-family: "Cantata One", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+#BGIMG {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    z-index: -3;
+    object-fit: cover;
+}
+
+#BlackCover {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    z-index: -2;
+    background-color: rgb(1, 13, 10);
+}
+
+#Line {
+    background-color: #fff;
+    position: fixed;
+    width: 100vw;
+    height: 0.4vw;
+    right: 100vw;
+    top: 14vw;
+}
+
+#Title {
+    color: #fff;
+    font-size: 2vw;
+    position: fixed;
+    left: 142vw;
+    top: 14vw;
+    padding-top: 1vw;
+    min-width: 42vw;
+}
+
+#MenuText {
+    color: #fff;
+    padding-right: 2vw;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    font-size: 13vw;
+    line-height: 1em;
+    z-index: 2;
+    display: flex;
+}
+
+menu {
+    display: none;
+    padding: 2vw;
+    flex-direction: column;
+    align-items: end;
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    min-width: 100vw;
+}
+
+.HomeMenuItem {
+    z-index: 3;
+    color: #fff;
+    text-decoration: none;
+    font-style: normal;
+    /*background-color: hsla(70, 70%, 30%, 0.3); */
+    padding-top: 2vh;
+    line-height: 0.9em;
+    translate: 84vw;
+}
+  
+#AboutMeBG {
+    z-index: 1;
+    position: fixed;
+    bottom: 0em;
+    background-color: hsla(0,0%,100%,0.3);
+    width: 100vw;
+    right: 0;
+}
+#ContactBG {
+    z-index: 1;
+    position: fixed;
+    bottom: 0em;
+    background-color: hsla(0,0%,100%,0.3);
+    width: 100vw;
+    right: 0;
+}
+#OtherPBG {
+    z-index: 1;
+    position: fixed;
+    bottom: 0em;
+    background-color: hsla(0,0%,100%,0.3);
+    width: 100vw;
+    right: 0;
+}
+#GalleryBG {
+    z-index: 1;
+    position: fixed;
+    bottom: 0em;
+    background-color: hsla(0,0%,100%,0.3);
+    width: 100vw;
+    right: 0;
+}
+
+#Gallery {
+    font-size: 13vw;
+}
+
+#OtherP {
+    display: flex;
+    flex-direction: row-reverse;
+}
+#Contact {
+    font-size: 6vw;
+}
+
+#AboutMe {
+    font-size: 4vw;
+}
+
+#OtherPL {
+    font-size: 7.5vw;
+    line-height: 0.9em;
+}
+
+#OtherPS {
+    font-size: 2vw;
+    position: relative;
+    top: 0.8vw;
+    padding-right: 0.2vw;
+}
+
+
+
+
+#underConstructionBG {
+    background-color: rgb(1, 13, 10);
+}
+
+#underConstruction {
+    color: #fff;
+    text-align: center;
+    line-height: 100vh;
+}

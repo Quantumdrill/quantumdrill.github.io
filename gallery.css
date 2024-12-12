@@ -1,0 +1,207 @@
+* {
+    margin: 0;
+}
+
+body {
+    overflow: hidden;
+}
+
+.FatFont {
+    font-family: "Gravitas One", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.RegularFont {
+    font-family: "Cantata One", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+#GalleryBG {
+    background-color: rgb(1, 13, 10);
+}
+
+#GalleryText {
+    position: fixed;
+    color: hsla(0,0%,100%,0.08);
+    z-index: -3;
+    font-size: 14vw;
+    line-height: 1em;
+    top: -2vw;
+}
+
+#OrderIndication {
+    rotate: -90deg;
+    color: rgb(199, 207, 204);
+    font-size: 9vh;
+    text-align: center;
+    line-height: 1em;
+    position: fixed;
+    top: 46vh;
+    right: -4.7em;
+    z-index: -2;
+}
+
+#TransparentCover {
+    position: fixed;
+    width: 100vw;
+    height: 100vw;
+    z-index: -2;;
+}
+
+
+
+#ChangeOrderBtn {
+    border-style: solid;
+    border-width: 1.5px;
+    border-color: rgb(199, 207, 204);
+    background-color: rgba(0,0,0,0);
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    width: 25vw;
+    height: 10vh;
+    position: fixed;
+    top: 5vh;
+    right: 12vw;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+#ChangeOrderBtnBG {
+    position: absolute;
+    bottom: 0;
+    background-color: rgb(199, 207, 204);
+    width: 100%;
+    height: 0%;
+    z-index: -1;
+}
+
+#ChangeOrderBtnTransition {
+    position: absolute;
+    bottom: 0;
+    background-color: rgb(1, 13, 10);
+    width: 100%;
+    height: 150%;
+    bottom: -150%;
+    z-index: 0;
+    display: none;
+}
+
+#ChangeOrderBtnText {
+    text-align: center;
+    color: #fff;
+    font-size: 2.2vh;
+}
+
+#MainGalleryWindow {
+    position: fixed;
+    margin: 0;
+    min-height: 100vh;
+    min-width: 46vw;
+    left: 7vw;
+    padding: 0;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+#MainGalleryWindow::-webkit-scrollbar {
+    display: none;
+}
+
+#GalleryLongPage {
+    position: absolute;
+    margin: 0 1vw;
+    min-height: 100vh;
+    width: 46vw;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0;
+    left: -1vw;
+    padding-top: 28vh;
+}
+
+.GalleryCard {
+    margin: 1vw;
+    border-style: solid;
+    border-color: rgb(199, 207, 204);
+    min-width: 20vw;
+    height: 20vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.GalleryCardCover {
+    min-width: 20vw;
+    height: 20vw;
+    position: absolute;
+    background-color: black;
+    opacity: 0;
+}
+
+.GalleryCardInfo {
+    color: rgb(199, 207, 204);
+    font-size: 1.2vw;
+    opacity: 0;
+    z-index: 1;
+}
+.GalleryTitle {
+    margin: 1vw;
+    min-width: 42vw;
+    background-color: rgba(199, 207, 204, 0.3);
+    height: 2vw;
+    display: flex;
+    align-items: end;
+    margin-top: 4vw;
+}
+
+.GalleryTitleText {
+    font-size: 3vw;
+    color: rgb(199, 207, 204);
+}
+
+#ScrollMenuWindow {
+    position: fixed;
+    height: 60vh;
+    width: 25vw;
+    right: 12vw;
+    bottom: 5vh;
+    overflow: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+#ScrollMenuWindow::-webkit-scrollbar {
+    display: none;
+}
+
+#ScrollMenuLongPage {
+    position: absolute;
+    height: 60vh;
+    width: 25vw;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+}
+
+.ScrollMenuCard {
+    margin: 0 0 1.5vw 0;
+    background-color: rgb(199, 207, 204);
+    min-height: 5vw;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.MenuCardText {
+    font-size: 1.6vw;
+
+}
+

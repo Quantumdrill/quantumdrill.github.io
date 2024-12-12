@@ -1,0 +1,14 @@
+{
+  "dependencies": {
+    "@sanity/client": "^6.24.1"
+  },
+  "devDependencies": {
+    "vite": "^6.0.3"
+  },
+  "scripts": {
+  "dev": "vite",
+  "build": "vite build"
+  }
+  
+}
+
