@@ -213,7 +213,7 @@ function ViewPhoto (e){
         zoomHeight=window.innerHeight*0.95;
         zoomWidth=zoomHeight*ratio;
     }
-    ImageDisplayImage.setAttribute("src",e.target.lastChild.getAttribute("src"));
+    ImageDisplayImage.setAttribute("src",e.target.lastChild.getAttribute("src").slice(0,-6));
     ImageDisplay.style.display = "block";
     TransparentCover2.style.display = "block"
     ImageDisplayCross.addEventListener("click",UnviewPhoto);
@@ -223,7 +223,7 @@ function ViewPhoto (e){
                 const newImageDisplayMenuItem = document.createElement("div");
                 newImageDisplayMenuItem.classList.add("ImageDisplayMenuItems");
                 const newImageDisplayMenuItemImage = document.createElement("img");
-                newImageDisplayMenuItemImage.setAttribute("src",img);
+                newImageDisplayMenuItemImage.setAttribute("src",img+"?h=200");
                 newImageDisplayMenuItemImage.classList.add("ImageDisplayMenuItemsImage");
                 newImageDisplayMenuItem.appendChild(newImageDisplayMenuItemImage);
                 ImageDisplayMenu.appendChild(newImageDisplayMenuItem);
@@ -246,7 +246,7 @@ function ViewPhoto (e){
         targets: "#ImageDisplayMenu .ImageDisplayMenuItems",
         translateY: "-15vh",
         duration: 300,
-        delay: anime.stagger(100),
+        delay: anime.stagger(30),
         easing: "easeInOutCubic",
     })
     anime({
@@ -259,7 +259,7 @@ function ViewPhoto (e){
         const Items = document.getElementsByClassName("ImageDisplayMenuItems");
         console.log(Items)
         for (const Item of Items){Item.addEventListener("click", e=>{
-            ImageDisplayImage.setAttribute("src", e.target.firstChild.getAttribute("src"));
+            ImageDisplayImage.setAttribute("src", e.target.firstChild.getAttribute("src").slice(0,-6));
         })};
     },300);
 }
@@ -280,7 +280,7 @@ function UnviewPhoto (){
         targets: "#ImageDisplayMenu .ImageDisplayMenuItems",
         translateY: "15vh",
         duration: 300,
-        delay: anime.stagger(100),
+        delay: anime.stagger(20),
         easing: "easeInOutCubic",
     })
     anime({
@@ -366,7 +366,7 @@ function byTimeContentLoad () {
         newGalleryCardInfo.textContent = elem.name;
         newGalleryCard.appendChild(newGalleryCardInfo);
         const newGalleryImg = document.createElement("img");
-        newGalleryImg.setAttribute("src",elem.imageURL[0]);
+        newGalleryImg.setAttribute("src",elem.imageURL[0]+"?h=800");
         newGalleryImg.classList.add("GalleryImg");
         newGalleryCard.appendChild(newGalleryImg);
         listOfDate.forEach((date,index)=>{
@@ -416,7 +416,7 @@ function byCollectionContentLoad () {
                     newGalleryCardInfo.textContent = elem.name;
                     newGalleryCard.appendChild(newGalleryCardInfo);
                     const newGalleryImg = document.createElement("img");
-                    newGalleryImg.setAttribute("src",elem.imageURL[0]);
+                    newGalleryImg.setAttribute("src",elem.imageURL[0]+"?h=800");
                     newGalleryImg.classList.add("GalleryImg");
                     newGalleryCard.appendChild(newGalleryImg);
                     GalleryLongPage.insertBefore(newGalleryCard,document.getElementsByClassName(removeSpace(listOfCollection[index+1]))[0]);
