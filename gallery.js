@@ -6,7 +6,7 @@ await fetch("https://xmf58cl9.api.sanity.io/v2022-03-07/data/query/production?qu
     .then(fetched=>{collectionResponse=fetched})
     .catch(err=>{console.error(err.message)})
 
-await fetch("https://xmf58cl9.api.sanity.io/v2022-03-07/data/query/production?query=*%5B_type+%3D%3D+%27set%27%5D%7Bcollection%5B%5D-%3E%7Bname%7D%2Cdate%2C%22imageURL%22%3Aimage%5B%5D.asset-%3Eurl%2C%7D")
+await fetch("https://xmf58cl9.api.sanity.io/v2022-03-07/data/query/production?query=*%5B_type+%3D%3D+%27set%27%5D%7Bname%2Ccollection%5B%5D-%3E%7Bname%7D%2Cdate%2C%22imageURL%22%3Aimage%5B%5D.asset-%3Eurl%2C%7D")
     .then(Response=>Response.json())
     .then(fetched=>{setResponse=fetched})
     .catch(err=>{console.error(err.message)})
@@ -136,7 +136,7 @@ function OrderChange (){
         const GalleryEndOfListItem = document.createElement("div");
         GalleryEndOfListItem.classList.add("GalleryEndOfList");
         GalleryLongPage.appendChild(GalleryEndOfListItem);
-    }, 800);
+    }, 800); //clear all html elements
     if (OrderStateIfCollection === true){
         setTimeout(()=>{OrderIndication.textContent = "BY TIME ORDER"},600);
         setTimeout(()=>{ChangeOrderBtnText.textContent = "SWITCH TO COLLECTION ORDER"},200);
@@ -154,7 +154,8 @@ function OrderChange (){
         for (const GalleryCard of GalleryCards){GalleryCard.addEventListener("mouseenter", GalleryCardHover)}
         for (const GalleryCard of GalleryCards){GalleryCard.addEventListener("mouseleave", GalleryCardUnhover)}
         for (const MenuCard of MenuCards){MenuCard.addEventListener("click", MenuCardJump)}
-    }, 1400);
+        for (const GalleryCard of GalleryCards){GalleryCard.addEventListener("click", ViewPhoto)}
+    }, 1400); //refresh eventlisteners
 }
 function MenuCardHover (e){
     anime({
@@ -173,14 +174,15 @@ function MenuCardUnhover (e){
     })
 }
 function GalleryCardHover (e){
+    
     anime({
-        targets: e.target,
+        targets: e.target.firstChild,
         opacity: "50%",
         duration: 120,
         easing: "easeInOutQuad",
     })
     anime({
-        targets: e.target.nextSibling,
+        targets: e.target.firstChild.nextSibling,
         opacity: "100%",
         duration: 120,
         easing: "easeInOutQuad",
@@ -188,17 +190,112 @@ function GalleryCardHover (e){
 }
 function GalleryCardUnhover (e){
     anime({
-        targets: e.target,
+        targets: e.target.firstChild,
         opacity: "0%",
         duration: 120,
         easing: "easeInOutQuad",
     })
     anime({
-        targets: e.target.nextSibling,
+        targets: e.target.firstChild.nextSibling,
         opacity: "0%",
         duration: 120,
         easing: "easeInOutQuad",
     })
+}
+function ViewPhoto (e){
+    let ratio = e.target.lastChild.naturalWidth/e.target.lastChild.naturalHeight;
+    let zoomWidth;
+    let zoomHeight;
+    if (ratio > window.innerWidth/window.innerHeight){
+        zoomWidth=window.innerWidth*0.95;
+        zoomHeight=zoomWidth/ratio;
+    } else {
+        zoomHeight=window.innerHeight*0.95;
+        zoomWidth=zoomHeight*ratio;
+    }
+    ImageDisplayImage.setAttribute("src",e.target.lastChild.getAttribute("src"));
+    ImageDisplay.style.display = "block";
+    TransparentCover2.style.display = "block"
+    ImageDisplayCross.addEventListener("click",UnviewPhoto);
+    setResponse.result.forEach(elem=>{
+        if (elem.nameClass === e.target.classList[1]){
+            elem.imageURL.forEach(img=>{
+                const newImageDisplayMenuItem = document.createElement("div");
+                newImageDisplayMenuItem.classList.add("ImageDisplayMenuItems");
+                const newImageDisplayMenuItemImage = document.createElement("img");
+                newImageDisplayMenuItemImage.setAttribute("src",img);
+                newImageDisplayMenuItemImage.classList.add("ImageDisplayMenuItemsImage");
+                newImageDisplayMenuItem.appendChild(newImageDisplayMenuItemImage);
+                ImageDisplayMenu.appendChild(newImageDisplayMenuItem);
+            })
+        }
+    })
+    anime({
+        targets: "#ImageDisplayImage",
+        opacity: 1,
+        duration: 300,
+        easing: "easeInOutQuad",
+    })
+    anime({
+        targets: "#TransparentCover2",
+        opacity: 0.8,
+        duration: 300,
+        easing: "easeInOutQuad",
+    })
+    anime({
+        targets: "#ImageDisplayMenu .ImageDisplayMenuItems",
+        translateY: "-15vh",
+        duration: 300,
+        delay: anime.stagger(100),
+        easing: "easeInOutCubic",
+    })
+    anime({
+        targets: "#ImageDisplayCross",
+        opacity: 1,
+        duration: 300,
+        easing: "easeInOutQuad",
+    })
+    setTimeout(()=>{
+        const Items = document.getElementsByClassName("ImageDisplayMenuItems");
+        console.log(Items)
+        for (const Item of Items){Item.addEventListener("click", e=>{
+            ImageDisplayImage.setAttribute("src", e.target.firstChild.getAttribute("src"));
+        })};
+    },300);
+}
+function UnviewPhoto (){
+    anime({
+        targets: "#ImageDisplayImage",
+        opacity: 0,
+        duration: 300,
+        easing: "easeInOutQuad",
+    })
+    anime({
+        targets: "#TransparentCover2",
+        opacity: 0,
+        duration: 300,
+        easing: "easeInOutQuad",
+    })
+    anime({
+        targets: "#ImageDisplayMenu .ImageDisplayMenuItems",
+        translateY: "15vh",
+        duration: 300,
+        delay: anime.stagger(100),
+        easing: "easeInOutCubic",
+    })
+    anime({
+        targets: "#ImageDisplayCross",
+        opacity: 0,
+        duration: 300,
+        easing: "easeInOutQuad",
+    })
+    setTimeout(()=>{
+        ImageDisplay.style.display = "none";
+        TransparentCover2.style.display = "none"
+        while (ImageDisplayMenu.firstChild) {
+            ImageDisplayMenu.removeChild(ImageDisplayMenu.firstChild);
+        }
+    },400);
 }
 function MenuCardJump (e){
     let JumpTarget;
@@ -216,12 +313,13 @@ function MenuCardJump (e){
 }
 
 const MenuCards = document.getElementsByClassName("ScrollMenuCard");
-const GalleryCards = document.getElementsByClassName("GalleryCardCover");
+const GalleryCards = document.getElementsByClassName("GalleryCard");
 setTimeout(()=>{
     for (const MenuCard of MenuCards){MenuCard.addEventListener("mouseenter", MenuCardHover)}
     for (const MenuCard of MenuCards){MenuCard.addEventListener("mouseleave", MenuCardUnhover)}
     for (const GalleryCard of GalleryCards){GalleryCard.addEventListener("mouseenter", GalleryCardHover)}
     for (const GalleryCard of GalleryCards){GalleryCard.addEventListener("mouseleave", GalleryCardUnhover)}
+    for (const GalleryCard of GalleryCards){GalleryCard.addEventListener("click", ViewPhoto)}
     for (const MenuCard of MenuCards){MenuCard.addEventListener("click", MenuCardJump)}
 }, 500);
 ChangeOrderBtn.addEventListener("mouseenter",OrderBtnHover);
@@ -258,13 +356,14 @@ function byTimeContentLoad () {
     sortedByDate.forEach(elem=>{
         const newGalleryCard = document.createElement("div");
         newGalleryCard.classList.add("GalleryCard");
+        newGalleryCard.classList.add(elem.nameClass);
         const newGalleryCover = document.createElement("div");
         newGalleryCover.classList.add("GalleryCardCover");
         newGalleryCard.appendChild(newGalleryCover);
         const newGalleryCardInfo = document.createElement("h5");
         newGalleryCardInfo.classList.add("GalleryCardInfo");
         newGalleryCardInfo.classList.add("RegularFont");
-        newGalleryCardInfo.textContent = "Image Info";
+        newGalleryCardInfo.textContent = elem.name;
         newGalleryCard.appendChild(newGalleryCardInfo);
         const newGalleryImg = document.createElement("img");
         newGalleryImg.setAttribute("src",elem.imageURL[0]);
@@ -285,8 +384,7 @@ function byCollectionContentLoad () {
         newMenuItemText.classList.add("RegularFont");
         newMenuItemText.textContent = elem;
         newMenuItem.classList.add("ScrollMenuCard");
-        const collectionNoSpace = elem.replace(/\s+/g, '');
-        newMenuItem.classList.add(String(collectionNoSpace));
+        newMenuItem.classList.add(String(removeSpace(elem)));
         newMenuItem.appendChild(newMenuItemText);
         ScrollMenuLongPage.appendChild(newMenuItem);
     }) //Load Scroll Menu
@@ -297,8 +395,7 @@ function byCollectionContentLoad () {
         newGalleryTitleText.classList.add("RegularFont");
         newGalleryTitleText.textContent = elem;
         newGalleryTitle.classList.add("GalleryTitle");
-        const collectionNoSpace = elem.replace(/\s+/g, '');
-        newGalleryTitle.classList.add(String(collectionNoSpace));
+        newGalleryTitle.classList.add(String(removeSpace(elem)));
         newGalleryTitle.appendChild(newGalleryTitleText);
         GalleryLongPage.insertBefore(newGalleryTitle,document.getElementsByClassName("GalleryEndOfList")[0]);
     }) //Load Gallery
@@ -309,20 +406,20 @@ function byCollectionContentLoad () {
                 if (elem1 === col.name){
                     const newGalleryCard = document.createElement("div");
                     newGalleryCard.classList.add("GalleryCard");
+                    newGalleryCard.classList.add(elem.nameClass);
                     const newGalleryCover = document.createElement("div");
                     newGalleryCover.classList.add("GalleryCardCover");
                     newGalleryCard.appendChild(newGalleryCover);
                     const newGalleryCardInfo = document.createElement("h5");
                     newGalleryCardInfo.classList.add("GalleryCardInfo");
                     newGalleryCardInfo.classList.add("RegularFont");
-                    newGalleryCardInfo.textContent = "Image Info";
+                    newGalleryCardInfo.textContent = elem.name;
                     newGalleryCard.appendChild(newGalleryCardInfo);
                     const newGalleryImg = document.createElement("img");
                     newGalleryImg.setAttribute("src",elem.imageURL[0]);
                     newGalleryImg.classList.add("GalleryImg");
                     newGalleryCard.appendChild(newGalleryImg);
-                    const collectionNoSpace = listOfCollection[index+1].replace(/\s+/g, '');
-                    GalleryLongPage.insertBefore(newGalleryCard,document.getElementsByClassName(collectionNoSpace)[0]);
+                    GalleryLongPage.insertBefore(newGalleryCard,document.getElementsByClassName(removeSpace(listOfCollection[index+1]))[0]);
                 }
             })   
         })
@@ -369,10 +466,11 @@ function dateNumberToText (input) {
             break;
     }
     return String(input).slice(0,4) + " " + month;
-};
+}; // turn "03" into "MAR"
 function dataProcess () {
     setResponse.result.forEach(elem=>{     
-        elem.dateSort=Number(String(elem.date).slice(0,4)+String(elem.date).slice(5,7))
+        elem.dateSort=Number(String(elem.date).slice(0,4)+String(elem.date).slice(5,7));
+        elem.nameClass=removeSpace(elem.name);
     });
     setResponse.result.sort((a,b)=>b.dateSort-a.dateSort);
     setResponse.result.forEach(elem=>{
@@ -387,7 +485,10 @@ function dataProcess () {
     })
     listOfCollection.push("GalleryEndOfList");
 }
+function removeSpace (input){
+    return input.replace(/\s+/g, '');
+}
 dataProcess();
-byTimeContentLoad();
+byTimeContentLoad(); // run on initial load
 
 
