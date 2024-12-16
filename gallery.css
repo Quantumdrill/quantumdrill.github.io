@@ -205,3 +205,14 @@ body {
 
 }
 
+.GalleryImg {
+    position: absolute;
+    width: 20vw;
+    height: 20vw;
+    z-index: -2;
+    object-fit: cover;
+}
+
+.GalleryEndOfList {
+    display: none;
+}
